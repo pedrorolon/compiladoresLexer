@@ -1,0 +1,1 @@
+gcc anlex.c tablaSimbolos.c -o anlex
