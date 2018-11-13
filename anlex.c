@@ -1,15 +1,15 @@
 /*
- *	Analizador Léxico	
+ *	Analizador Lï¿½xico	
  *	Curso: Compiladores y Lenguajes de Bajo de Nivel
- *	Práctica de Programación Nro. 1
+ *	Prï¿½ctica de Programaciï¿½n Nro. 1
  *	
  *	Descripcion:
- *	Implementa un analizador léxico que reconoce números, identificadores, 
- * 	palabras reservadas, operadores y signos de puntuación para un lenguaje
+ *	Implementa un analizador lï¿½xico que reconoce nï¿½meros, identificadores, 
+ * 	palabras reservadas, operadores y signos de puntuaciï¿½n para un lenguaje
  * 	con sintaxis tipo Pascal.
  *	
  */
-/*********** Inclusión de cabecera **************/
+/*********** Inclusiï¿½n de cabecera **************/
 #include "anlex.h"
 
 
@@ -20,7 +20,8 @@ int consumir;			/* 1 indica al analizador lexico que debe devolver
 
 char cad[5*TAMLEX];		// string utilizado para cargar mensajes de error
 token t;				// token global para recibir componentes del Analizador Lexico
-int ban_error = 0; 
+int ban_error = 0; 		//si ban_error = 1 ocurriÃ³ un error
+						//si ban_error = 0 no ocurriÃ³ error
 
 // variables para el analizador lexico
 
@@ -88,7 +89,7 @@ void sigLex()
 				i++;
 				c=fgetc(archivo);
 				if (i>=TAMLEX)
-					error("Longitud de Identificador excede tamaño de buffer");
+					error("Longitud de Identificador excede tamaï¿½o de buffer");
 			}while(isalpha(c));
 			id[i]='\0';
 			if (c!=EOF) ungetc(c,archivo);
@@ -114,7 +115,7 @@ void sigLex()
 				i++;
 				c=fgetc(archivo);
 				if (i>=TAMLEX)
-					error("Longitud de Identificador excede tamaño de buffer");
+					error("Longitud de Identificador excede tamaï¿½o de buffer");
 			}while(c!='"' && c!=EOF);
 			//en caso de que el ".*" no incluya caracteres especiales
 			//while(isalpha(c) || isdigit(c));
@@ -318,6 +319,10 @@ void sigLex()
 			t.compLex=DOS_PUNTOS;
 			t.pe=buscar(":");
 			break;
+		}
+		else{
+			char mensaje[30]="No se esperaba elemento: ";
+			error(strcat(mensaje, &c));
 		}
 
 		
